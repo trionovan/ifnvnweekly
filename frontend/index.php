@@ -10,10 +10,10 @@
     <h1>INFORMATIKA 2026</h1>
     <table border = "1" cellspacing = "0" cellpadding = "10">
         <tr>
-            <th><a href="index.html">Home</a></th>
-            <th><a href="profile.html">Profile</a></th>
-            <th><a href="contact.html">Contact</a></th>
-            <th><a href="mahasiswa.html">Mahasiswa</a></th>
+            <th><a href="index.php">Home</a></th>
+            <th><a href="profile.php">Profile</a></th>
+            <th><a href="contact.php">Contact</a></th>
+            <th><a href="mahasiswa.php">Mahasiswa</a></th>
         </tr>
     </table>
     <br>
@@ -34,8 +34,8 @@
         quasi voluptates? <b>H<sub>2</sub>O 2<sup>2</sup></b></i>
     </p>
 
-    <a href="profile.html" >profile</a><br>
-    <a href="contact.html">contact</a><br>
+    <a href="profile.php" >profile</a><br>
+    <a href="contact.php">contact</a><br>
     <a href="https://youtube.com" target="_blank">Youtube</a>
 
     <link rel="stylesheet" href="style.css">

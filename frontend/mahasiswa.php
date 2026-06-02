@@ -9,17 +9,17 @@
     <h1>INFORMATIKA 2026</h1>
     <table border = "1" cellspacing = "0" cellpadding = "10px">
         <tr>
-            <th><a href="index.html">Home</a></th>
-            <th><a href="profile.html">Profile</a></th>
-            <th><a href="contact.html">Contact</a></th>
-            <th><a href="mahasiswa.html">Mahasiswa</a></th>
+            <th><a href="index.php">Home</a></th>
+            <th><a href="profile.php">Profile</a></th>
+            <th><a href="contact.php">Contact</a></th>
+            <th><a href="mahasiswa.php">Mahasiswa</a></th>
         </tr>
     </table>
     <br>
     <hr/>
     <h2>Data Mahasiswa</h2>
 
-    <a href="tambahdata.html">
+    <a href="tambahdata.php">
         <button>Tambah Data</button>
     </a>
     
