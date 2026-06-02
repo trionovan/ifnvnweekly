@@ -20,7 +20,7 @@
     <hr/>
     <hr>
     <h3>Sambutan Ketua</h3>
-    <img src="assets\images\kaprodi.jpg" width="200px" >
+    <img src="../assets/images/kaprodi.jpg" width="200px" >
     <p>
         <b>
         Nama : Andi <br>
