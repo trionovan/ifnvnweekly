@@ -1,3 +1,11 @@
+<?php
+
+    require "fungsi.php";
+    $qmahasiswa = "SELECT * FROM mahasiswa";
+    $mahasiswas = tampildata($qmahasiswa);
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -40,48 +48,30 @@
             <th>Foto</th>
             <th>Aksi</th>
         </tr>
+       <?php
+        $i = 1;
+        foreach ($mahasiswas as $mhs):
+        ?>
 
-        <tr>
-            <td align="center">1</td>
-            <td>John Doe</td>
-            <td>13182420098</td>
-            <td>Informatika</td>
-            <td>johndoe@unimus.ac.id</td>
-            <td>089223445687</td>
-            <td><img src="../assets/Image/andi.jpg" alt="Andi" width="60"></td>
-            <td>
-                <a href="editdata.php"><button>Edit</button></a>
-                <a href="deletedata.php"><button>Hapus</button></a>
+    <tr>
+        <td align="center"><?= $i++; ?></td>
+        <td><?= $mhs["nama"] ?></td>
+        <td><?= $mhs["nim"] ?></td>
+        <td><?= $mhs["jurusan"] ?></td>
+        <td><?= $mhs["email"] ?></td>
+        <td><?= $mhs["no_hp"] ?></td>
+        <td>
+            <img src="../assets/Image/<?= $mhs["foto"] ?>" width="60">
             </td>
-        </tr>
+        <td>
+            <a href="editdata.php"><button>Edit</button></a>
+            <a href="deletedata.php"><button>Hapus</button></a>
+        </td>
+    </tr>
 
-        <tr>
-            <td align="center">1</td>
-            <td>Aulia</td>
-            <td>13182420085</td>
-            <td>Informatika</td>
-            <td>aulia@unimus.ac.id</td>
-            <td>089223445678</td>
-            <td><img src="../assets/Image/aulia.jpg" alt="Aulia" width="60"></td>
-                        <td>
-                <a href="editdata.php"><button>Edit</button></a>
-                <a href="deletedata.php"><button>Hapus</button></a>
-            </td>
-        </tr>
-
-        <tr>
-            <td align="center">1</td>
-            <td>Siti</td>
-            <td>13182420875</td>
-            <td>Informatika</td>
-            <td>sitie@unimus.ac.id</td>
-            <td>089223445123</td>
-            <td><img src="../assets/Image/siti.jpg" alt="Siti" width="60"></td>
-            <td>
-                <a href="editdata.php"><button>Edit</button></a>
-                <a href="deletedata.php"><button>Hapus</button></a>
-            </td>
-        </tr>
+    <?php 
+        endforeach; 
+    ?>
     </table>
 
     <br>
