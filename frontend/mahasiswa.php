@@ -65,7 +65,8 @@
             </td>
         <td>
             <a href="editdata.php"><button>Edit</button></a>
-            <a href="deletedata.php"><button>Hapus</button></a>
+            <a href="hapusdata.php?id=<?= $mhs["id"]; ?>"onclick="return confirm ('Yakin ingin ngehapus ini??')";><button>Hapus</button>
+</a>
         </td>
     </tr>
 
