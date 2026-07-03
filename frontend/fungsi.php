@@ -43,4 +43,34 @@
 
             return mysqli_affected_rows($connection);
         }
+
+        function register($data)
+        {
+            global $connection;
+
+            $username = stripslashes($data["username"]);
+            $password1 = mysqli_real_escape_string($connection,$data
+            ["password1"]);
+            $password2 = mysqli_real_escape_string($connection,$data
+            ["password2"]);
+
+            if($password1 != $password2)
+            {
+                echo "<script>
+                alert('Konfirmasi Password Tidak Sesuai!');
+                window.location.href='register.php';
+                </script>
+                ";
+                return false;
+            }
+
+            //Enkripsi Password
+            $password_hash = password_hash($password1, PASSWORD_DEFAULT);
+            $query = "INSERT INTO user(username, password) VALUES 
+            ('$username', '$password_hash')";
+
+            mysqli_query($connection,$query);
+
+            return mysqli_affected_rows($connection);
+        }
 ?>

@@ -23,6 +23,7 @@
             <th><a href="profile.php">Profile</a></th>
             <th><a href="contact.php">Contact</a></th>
             <th><a href="mahasiswa.php">Mahasiswa</a></th>
+            <th><a href="register.php">Register</a></th>
         </tr>
     </table>
 
