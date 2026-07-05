@@ -1,4 +1,40 @@
 <?php
+        session_start();
+
+        function login($data)
+        {
+            global $connection;
+
+            $username = mysqli_real_escape_string($connection, $data["username"]);
+            $password = $data["password"]; // password mentah dari form, JANGAN di-hash disini
+
+            $query = "SELECT * FROM user WHERE username = '$username'";
+            $result = mysqli_query($connection, $query);
+
+            if(mysqli_num_rows($result) == 1)
+            {
+                $user = mysqli_fetch_assoc($result);
+
+                // Ini nih bagian pentingnya bre, verify password pake hash yg disimpan pas register
+                if(password_verify($password, $user["password"]))
+                {
+                    $_SESSION["login"] = true;
+                    $_SESSION["id"] = $user["id"];
+                    $_SESSION["username"] = $user["username"];
+
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        function logout()
+        {
+            session_unset();
+            session_destroy();
+        }
+
         $connection = mysqli_connect("localhost", "root", "root", "ifnvnweekly");
 
         function tampildata($query)

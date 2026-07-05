@@ -1,6 +1,13 @@
 <?php
 
     require "fungsi.php";
+
+    if(!isset($_SESSION["login"]) || $_SESSION["login"] !== true)
+    {
+        header("Location: login.php");
+        exit;
+    }
+
     $qmahasiswa = "SELECT * FROM mahasiswa";
     $mahasiswas = tampildata($qmahasiswa);
 
@@ -16,6 +23,7 @@
 <body>
 
     <h1>INFORMATIKA 2026</h1>
+    <p>Halo, <b><?= $_SESSION["username"] ?></b>! | <a href="logout.php">Logout</a></p>
 
     <table border="1" cellspacing="0" cellpadding="10">
         <tr>
