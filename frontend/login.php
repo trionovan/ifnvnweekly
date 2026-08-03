@@ -11,9 +11,14 @@
     {
         $sukses = login($_POST);
 
-        if($sukses)
+        if($sukses === true)
         {
             header("Location: mahasiswa.php");
+            exit;
+        }
+        else if($sukses === "mfa_required")
+        {
+            header("Location: verify_mfa.php");
             exit;
         }
         else

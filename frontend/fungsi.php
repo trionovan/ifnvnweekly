@@ -1,12 +1,14 @@
 <?php
         session_start();
 
+        require "totp_helper.php";
+
         function login($data)
         {
             global $connection;
 
             $username = mysqli_real_escape_string($connection, $data["username"]);
-            $password = $data["password"]; // password mentah dari form, JANGAN di-hash disini
+            $password = $data["password"];
 
             $query = "SELECT * FROM user WHERE username = '$username'";
             $result = mysqli_query($connection, $query);
@@ -15,9 +17,15 @@
             {
                 $user = mysqli_fetch_assoc($result);
 
-                // Ini nih bagian pentingnya bre, verify password pake hash yg disimpan pas register
                 if(password_verify($password, $user["password"]))
                 {
+                    if($user["mfa_enabled"] == 1)
+                    {
+                        // belum full login, nunggu verifikasi kode dulu
+                        $_SESSION["pending_mfa_id"] = $user["id"];
+                        return "mfa_required";
+                    }
+
                     $_SESSION["login"] = true;
                     $_SESSION["id"] = $user["id"];
                     $_SESSION["username"] = $user["username"];
