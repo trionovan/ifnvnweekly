@@ -17,21 +17,21 @@
             {
                 $user = mysqli_fetch_assoc($result);
 
-                if(password_verify($password, $user["password"]))
-                {
-                    if($user["mfa_enabled"] == 1)
+                    if(password_verify($password, $user["password"]))
                     {
-                        // belum full login, nunggu verifikasi kode dulu
-                        $_SESSION["pending_mfa_id"] = $user["id"];
-                        return "mfa_required";
+                        if($user["mfa_enabled"] == 1)
+                        {
+                            // udah aktif MFA, minta verifikasi kode
+                            $_SESSION["pending_mfa_id"] = $user["id"];
+                            return "mfa_required";
+                        }
+                        else
+                        {
+                            // belum setup MFA, WAJIB setup dulu
+                            $_SESSION["pending_setup_id"] = $user["id"];
+                            return "mfa_setup_required";
+                        }
                     }
-
-                    $_SESSION["login"] = true;
-                    $_SESSION["id"] = $user["id"];
-                    $_SESSION["username"] = $user["username"];
-
-                    return true;
-                }
             }
 
             return false;

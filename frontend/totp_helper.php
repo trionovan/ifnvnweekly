@@ -57,7 +57,7 @@ function getTOTPCode($secret, $timeSlice = null) {
     return str_pad($code, 6, '0', STR_PAD_LEFT);
 }
 
-function verifyTOTP($secret, $code, $window = 1) {
+function verifyTOTP($secret, $code, $window = 4) {
     $currentSlice = floor(time() / 30);
     for ($i = -$window; $i <= $window; $i++) {
         if (getTOTPCode($secret, $currentSlice + $i) === $code) {

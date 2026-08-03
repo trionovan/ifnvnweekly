@@ -12,19 +12,24 @@
         $sukses = login($_POST);
 
         if($sukses === true)
-        {
-            header("Location: mahasiswa.php");
-            exit;
-        }
-        else if($sukses === "mfa_required")
-        {
-            header("Location: verify_mfa.php");
-            exit;
-        }
-        else
-        {
-            echo "<script>alert('Username atau Password salah!');</script>";
-        }
+{
+    header("Location: mahasiswa.php");
+    exit;
+}
+else if($sukses === "mfa_required")
+{
+    header("Location: verify_mfa.php");
+    exit;
+}
+else if($sukses === "mfa_setup_required")
+{
+    header("Location: setup_mfa.php");
+    exit;
+}
+else
+{
+    echo "<script>alert('Username atau Password salah!');</script>";
+}
     }
 ?>
 <!DOCTYPE html>
