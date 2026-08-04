@@ -1,33 +1,48 @@
 <?php
+    // Mengimpor file fungsi.php yang berisi koneksi database & helper function (verifyTOTP, dll)
     require "fungsi.php";
 
+    // Cek apakah ada session 'pending_mfa_id' (artinya user baru aja lolos cek password
+    // dan mfa_enabled-nya sudah 1). Kalau session ini gak ada, berarti user akses
+    // halaman ini secara langsung tanpa lewat proses login, jadi dilempar balik ke login.php
     if(!isset($_SESSION["pending_mfa_id"]))
     {
         header("Location: login.php");
         exit;
     }
 
+    // Inisialisasi variabel penampung pesan error
     $error = "";
 
+    // Cek apakah form input kode OTP sudah disubmit via metode POST
     if(isset($_POST["code"]))
     {
+        // Mengambil ID user dari session sementara yang di-set pas proses login
         $id = $_SESSION["pending_mfa_id"];
+
+        // Query untuk mengambil data user (termasuk mfa_secret) berdasarkan ID
         $query = "SELECT * FROM user WHERE id = $id";
         $result = mysqli_query($connection, $query);
         $user = mysqli_fetch_assoc($result);
 
+        // Memvalidasi kode OTP yang diinput user dengan secret key yang tersimpan di database
         if(verifyTOTP($user["mfa_secret"], trim($_POST["code"])))
         {
+            // Kode benar, hapus session sementara karena proses verifikasi udah selesai
             unset($_SESSION["pending_mfa_id"]);
+
+            // Set session login resmi, menandakan user sudah terautentikasi penuh (password + MFA)
             $_SESSION["login"] = true;
             $_SESSION["id"] = $user["id"];
             $_SESSION["username"] = $user["username"];
 
+            // Redirect ke halaman utama/dashboard
             header("Location: mahasiswa.php");
             exit;
         }
         else
         {
+            // Pesan error jika kode salah, kadaluwarsa, atau jam HP client gak sinkron
             $error = "Kode salah atau sudah expired, coba lagi.";
         }
     }
@@ -135,12 +150,14 @@
         <h1>Verifikasi Kode</h1>
         <p>Masukkan 6 digit kode dari aplikasi Google Authenticator Anda</p>
 
+        <!-- Menampilkan pesan alert error jika kode OTP yang diinput salah -->
         <?php if($error): ?>
             <div class="alert-error">
                 <?php echo $error; ?>
             </div>
         <?php endif; ?>
 
+        <!-- Form input untuk memasukkan 6 digit kode OTP dari Google Authenticator -->
         <form action="" method="POST">
             <div class="form-group">
                 <input type="text" name="code" class="input-otp" maxlength="6" placeholder="000000" required autofocus autocomplete="off">
